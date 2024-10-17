@@ -1,0 +1,9 @@
+# Ignore environment files
+.ecom_env
+
+# Ignore compiled Python files
+__pycache__/
+*.py[cod]
+
+# Ignore database files
+*.sqlite3
