@@ -1,1 +1,3 @@
 .ecom_env/
+/ecommerce_backend/media/
+/ecommerce_backend/db.sqlite3
