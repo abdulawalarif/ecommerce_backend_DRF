@@ -5,9 +5,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from product_app.serializers import ProductSerializer
 from product_app.models import Product
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
 
 
 class ProductView(APIView):
+
+    def get_permissions(self):
+        if self.request.method == 'GET':
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
 #get data
     def get(self, request, *args, **kwargs):
         # single product detail view
