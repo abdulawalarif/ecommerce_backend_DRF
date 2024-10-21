@@ -1,49 +1,108 @@
-# API Endpoint for E-commerce product GET,	POST,	PUT,	DELETE API with Django Rest Framework
-
-Base_URL : https://awalarifdr.pythonanywhere.com
+# Django REST Framework E-commerce API with Authentication (GET, POST, PUT, DELETE)
 
 
-* GET
+## This project provides a Django REST API for an e-commerce platform, supporting CRUD operations (Create, Read, Update, Delete) for products. It includes user authentication for secure access to product data manipulation only (update, delete and create). But user can read for data without auth token.
 
-1.  For all products url => Base_URL/api/products
-
-2.  For a single product url => Base_URL/api/product/product_id
-
-
-* POST
-
-1. url =>Base_URL/api/products
-
-No authentication required for now. You can send data to the server. for posting data, add the data on requests body as form-data
-fill the title / description / num_of_prod_on_stock / price / uploaded_images -> ( this is a list field you can upload multiple images / single image And all the fields are required.
-
-
-For Example:
-
-
-
-* UPDATE
-
-1.  url => Base_URL/api/product/id_of_item
-
-For updating any product put changed data on request body as form-data fill the title/description/num_of_prod_on_stock/price/uploaded_images,
- all the fields are optional send request as  PUT. 
-
-Like the Image below:
-
-
-![alt text](screenshots/put_data.png)
+## Features
+* Secure authentication using Django Rest Framework Authentication (JWT Toke)
+* Full CRUD support for managing products
+* Supports multiple images uploads for products
+* API endpoints GET, POST, PUT, and DELETE
+* Lightweight and fast, perfect for small to medium-scale e-commerce platforms
 
 
 
 
-* Delete
+## Authentication
 
-1.  url => Base_URL/api/product/delete/id_of_item
-
-For deleting any item give the id of product on url and hit send as a DELETE request. 
+Use the provided authentication mechanism to obtain tokens.
 
 
+
+* Register User:
+* Fill these 3 fields
+
+
+
+```bash
+  URL: POST to Base_URL/api/auth/register
+  username #PK
+  email
+  password
+```
+
+* Login User:
+
+
+
+```bash
+  POST to Base_URL/api/auth/login
+  username 
+  password
+```
+
+
+![Login and Registration visualized ](<screenshots/auth.jpg>)
+
+ 
+
+On successful login, you will receive an authentication token to be used in the header for subsequent write requests.
+
+
+
+# API Endpoints
+## Product Endpoints
+
+* Get All Products:
+
+
+```bash
+GET request to Base_URL/api/products
+```
+
+* Get a Single Product:
+
+
+```bash
+GET request to Base_URL/api/product/product_id
+```
+
+
+![Fetching products from Database ](<screenshots/fetchProduct.jpg>)
+
+ 
+* Create Product (Authenticated):
+
+```bash
+POST request to Base_URL/api/product/products
+# with title, description, num_of_prod_on_stock, price, uploaded_images
+# With Auth token
+```
+
+![Creating products](<screenshots/createProduct.jpg>)
+
+* Update Product (Authenticated):
+
+
+```bash
+PUT request to Base_URL/api/product/id_of_item
+# with title, description, num_of_prod_on_stock, price, uploaded_images
+# With Auth token
+```
+ 
+
+![Update products](<screenshots/updateProd.jpg>)
+
+* Delete Product (Authenticated):
+
+```bash
+DELETE request to Base_URL/api/product/delete/id_of_item
+# With Auth token
+```
+ 
+
+ 
+ 
 
 ## Run Locally
 
@@ -76,7 +135,6 @@ For deleting any item give the id of product on url and hit send as a DELETE req
 
 ```bash
   pip install -r requirements.txt
-
 ```
 
 6. go to the ecommerce_backend/settings.py and change the databse to Sqlite
@@ -89,7 +147,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 ```
 
 Or you can crate a SQL if you want to.
@@ -108,25 +165,16 @@ python manage.py makemigrations
 
 ```bash
 python manage.py runserver
-
 ```
 
  Now fill some data first with this URL POST request 
 
-![alt text](<screenshots/post data.png>)
 
-```bash
-URL: http://127.0.0.1:8000//api/products
-# Requird field
-title
-description
-num_of_prod_on_stock 
-price
-uploaded_images #this is a list of images file you can put multiple images 
-```
+
+
 ## How to tweak this project for your own uses
 
-It's a good starter boilerplate, An ecommerce app 
+It's a good starter boilerplate, for an ecommerce app, Create models for categories and user's follow a good design architecture and make sure to Normalize the datababse for preventing overload or duplication of same data in multiple places.
 
 ## Found a bug?
 
@@ -135,8 +183,7 @@ please submit an issue using the issues tab above. If you would like to submit a
 
 
 ## Known issues (Work in progress)
-*   No auth yet
-
+*  Update method do no delete images it just add new images with existing image list. 
 
 
 ## Author
