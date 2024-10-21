@@ -13,3 +13,5 @@ urlpatterns = [
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    # TODO Invalid login or password. Please try again. for auth wrong password or email mismatch
